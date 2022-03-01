@@ -24,11 +24,14 @@ function TodoList() {
 			return;
 		}
 		const anewTodo = {
+			id: todo.id,
+			text: todo.text,
 			label: todo.text,
 			done: false,
 		};
-		const newTodos = [anewTodo, ...todos];
-		setTodos(newTodos);
+		// const newTodos = [anewTodo, ...todos];
+		todos.push(anewTodo);
+		setTodos(todos);
 	};
 
 	const removeTodo = (index) => {
