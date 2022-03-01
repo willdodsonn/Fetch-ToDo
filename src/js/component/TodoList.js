@@ -2,21 +2,8 @@ import React, { useState, useEffect } from "react";
 import Todo from "./Todo";
 import TodoForm from "./TodoForm";
 
-// useEffect(() => {
-// 	fetch("https://assets.breatheco.de/apis/fake/todos/user/davidd")
-// 		.then((response) => {
-// 			if (!response.ok) {
-// 				throw new Error(`${response.status} - ${response.statusText}`);
-// 			}
-// 			return response.json();
-// 		})
-// 		.then((data) => console.log(data))
-// 		.catch((err) => console.error(err));
-// }, []);
-
 function TodoList() {
 	const [todos, setTodos] = useState([]);
-
 	useEffect(() => {
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/davidd")
 			.then((response) => {
@@ -36,7 +23,11 @@ function TodoList() {
 			//what the fuck is this ^^^
 			return;
 		}
-		const newTodos = [todo, ...todos];
+		const anewTodo = {
+			label: todo.text,
+			done: false,
+		};
+		const newTodos = [anewTodo, ...todos];
 		setTodos(newTodos);
 	};
 
@@ -44,18 +35,25 @@ function TodoList() {
 		setTodos(todos.filter((item, i) => index != i));
 		// const removeArr = [...todos].filter((todo) => todo.id !== id);
 		// setTodos(removeArr);
-		fetch("https://assets.breatheco.de/apis/fake/todos/user/davidd", {
-			method: "PUT",
-			body: todos,
-		})
-			.then((response) => response.json())
-			.then((result) => {
-				console.log("Success:", result);
-			})
-			.catch((error) => {
-				console.error("Error:", error);
-			});
 	};
+
+	var requestOptions = {
+		method: "PUT",
+		headers: { "content-type": "application/json" },
+		body: todos,
+	};
+
+	fetch(
+		"https://assets.breatheco.de/apis/fake/todos/user/davidd",
+		requestOptions
+	)
+		.then((response) => response.json())
+		.then((result) => {
+			console.log("Success:", result);
+		})
+		.catch((error) => {
+			console.error("Error:", error);
+		});
 
 	const completeTodo = (id) => {
 		let updatedTodos = todos.map((todo) => {
