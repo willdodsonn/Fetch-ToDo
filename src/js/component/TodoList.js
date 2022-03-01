@@ -41,10 +41,9 @@ function TodoList() {
 	};
 
 	const removeTodo = (index) => {
-	
 		setTodos(todos.filter((item, i) => index != i));
-
-
+		// const removeArr = [...todos].filter((todo) => todo.id !== id);
+		// setTodos(removeArr);
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/davidd", {
 			method: "PUT",
 			body: todos,
@@ -56,8 +55,6 @@ function TodoList() {
 			.catch((error) => {
 				console.error("Error:", error);
 			});
-
-
 	};
 
 	const completeTodo = (id) => {

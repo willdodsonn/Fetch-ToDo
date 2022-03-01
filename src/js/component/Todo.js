@@ -10,6 +10,7 @@ function Todo({ todos, completeTodo, removeTodo }) {
 			key={index}>
 			<div key={todo.id} onClick={() => completeTodo(todo.id)}>
 				{todo.label}
+				{todo.text}
 			</div>
 			<div className="icons">
 				<FontAwesomeIcon
