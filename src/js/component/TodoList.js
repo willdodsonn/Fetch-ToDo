@@ -43,7 +43,7 @@ function TodoList() {
 	var requestOptions = {
 		method: "PUT",
 		headers: { "content-type": "application/json" },
-		body: todos,
+		body: JSON.stringify(todos),
 	};
 
 	fetch(
