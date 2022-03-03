@@ -23,15 +23,10 @@ function TodoList() {
 			//what the fuck is this ^^^
 			return;
 		}
-		const anewTodo = {
-			id: todo.id,
-			text: todo.text,
-			label: todo.text,
-			done: false,
-		};
-		// const newTodos = [anewTodo, ...todos];
-		todos.push(anewTodo);
-		setTodos(todos);
+
+		const newTodos = [todo, ...todos];
+
+		setTodos(newTodos);
 	};
 
 	const removeTodo = (index) => {
