@@ -24,35 +24,37 @@ function TodoList() {
 			return;
 		}
 
-		const newTodos = [todo, ...todos];
+		const newTodos = [...todos, { label: todo.text, done: false }];
 
-		setTodos(newTodos);
+		updateTodos(newTodos);
 	};
 
 	const removeTodo = (index) => {
-		setTodos(todos.filter((item, i) => index != i));
+		updateTodos(todos.filter((item, i) => index != i));
 		// const removeArr = [...todos].filter((todo) => todo.id !== id);
 		// setTodos(removeArr);
 	};
 
-	var requestOptions = {
-		method: "PUT",
-		headers: { "content-type": "application/json" },
-		body: JSON.stringify(todos),
+	const updateTodos = (newTodos) => {
+		var requestOptions = {
+			method: "PUT",
+			headers: { "content-type": "application/json" },
+			body: JSON.stringify(newTodos),
+		};
+
+		fetch(
+			"https://assets.breatheco.de/apis/fake/todos/user/davidd",
+			requestOptions
+		)
+			.then((response) => response.json())
+			.then((result) => {
+				setTodos(newTodos);
+				console.log("Success:", result);
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+			});
 	};
-
-	fetch(
-		"https://assets.breatheco.de/apis/fake/todos/user/davidd",
-		requestOptions
-	)
-		.then((response) => response.json())
-		.then((result) => {
-			console.log("Success:", result);
-		})
-		.catch((error) => {
-			console.error("Error:", error);
-		});
-
 	const completeTodo = (id) => {
 		let updatedTodos = todos.map((todo) => {
 			if (todo.id === id) {
